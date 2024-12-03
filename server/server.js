@@ -10,7 +10,13 @@ const taskRoutes = require('./routes/taskRoutes');
 app.use(express.json());
 
 // Enable cors
-app.use(cors());
+app.use(cors(
+    {
+        origin: [""],
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE"],
+    }
+));
 app.use(bodyParser.json());
 
 // Routes
@@ -18,6 +24,10 @@ app.use('/api', taskRoutes);
 
 // Connect MongoDB
 connectDB();
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 // Connect Port
 app.listen(port, () => {
